@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 
-@Component
+// @Component
 // Add in some seed data for Beer objects
 public class BeerLoader implements CommandLineRunner {
 
