@@ -7,9 +7,14 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class BeerPagedList extends PageImpl<BeerDto> {
+public class BeerPagedList extends PageImpl<BeerDto> implements Serializable {
+
+    // not necessary to have serialVersionUID for Serializable
+    // but it is a good practice to have serial version UID for each version of the class
+    static final long serialVersionUID = -1641279146598473844L;
 
     /*
     * We can use the @JsonCreator annotation to tune the constructor/factory used in deserialization.

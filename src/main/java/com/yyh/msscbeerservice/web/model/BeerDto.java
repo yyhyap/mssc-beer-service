@@ -10,6 +10,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 import javax.validation.constraints.Positive;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.UUID;
@@ -18,7 +19,11 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class BeerDto {
+public class BeerDto implements Serializable {
+
+    // not necessary to have serialVersionUID for Serializable,
+    // but it is a good practice to have serial version UID for each version of the class
+    static final long serialVersionUID = -3966778992454798713L;
 
     // avoid inputting value to id
     @Null

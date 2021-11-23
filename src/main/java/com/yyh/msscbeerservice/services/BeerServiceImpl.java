@@ -8,7 +8,9 @@ import com.yyh.msscbeerservice.web.model.BeerDto;
 import com.yyh.msscbeerservice.web.model.BeerPagedList;
 import com.yyh.msscbeerservice.web.model.BeerStyleEnum;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,7 @@ import javax.transaction.Transactional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class BeerServiceImpl implements BeerService {
@@ -28,10 +31,19 @@ public class BeerServiceImpl implements BeerService {
     @Autowired
     private BeerRepository beerRepository;
 
+    // conditional caching, cache only when it is not going to get quantityOnHand from Beer Inventory Service
+    @Cacheable(cacheNames = "beerListCache", condition = "#showInventoryOnHand == false")
     @Override
     public BeerPagedList listBeers(String beerName, String beerStyle, PageRequest pageRequest, Boolean showInventoryOnHand) {
         BeerPagedList beerPagedList;
         Page<Beer> beerPage;
+
+//        // for testing
+//        String methodName = new Object() {}
+//                .getClass()
+//                .getEnclosingMethod()
+//                .getName();
+//        log.debug(methodName + " is called");
 
         if (!StringUtils.isEmpty(beerName) && !StringUtils.isEmpty(beerStyle)) {
             //search both
@@ -71,8 +83,19 @@ public class BeerServiceImpl implements BeerService {
         return beerPagedList;
     }
 
+    // conditional caching, cache only when it is not going to get quantityOnHand from Beer Inventory Service
+    @Cacheable(cacheNames = "beerCache", key = "#beerId",condition = "#showInventoryOnHand == false")
     @Override
     public BeerDto getById(UUID beerId, Boolean showInventoryOnHand) {
+
+
+//        // for testing
+//        String methodName = new Object() {}
+//                .getClass()
+//                .getEnclosingMethod()
+//                .getName();
+//        log.debug(methodName + " is called");
+
         if(showInventoryOnHand) {
             return beerMapper.beerToBeerDtoWithInventory(beerRepository.findById(beerId).orElseThrow(() -> new NotFoundException()));
         } else {
