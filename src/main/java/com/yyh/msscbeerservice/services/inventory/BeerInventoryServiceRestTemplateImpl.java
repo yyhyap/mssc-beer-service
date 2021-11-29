@@ -43,6 +43,10 @@ public class BeerInventoryServiceRestTemplateImpl implements BeerInventoryServic
                         // uriVariables: {beerId}
                         (Object) beerId);
 
+        Objects.requireNonNull(responseEntity.getBody()).forEach(beerInventoryDto -> {
+            System.out.println(beerInventoryDto.getBeerId() + " has quantity " + beerInventoryDto.getQuantityOnHand());
+        });
+
         //sum from inventory list
         Integer onHand = Objects.requireNonNull(responseEntity.getBody())
                 .stream()

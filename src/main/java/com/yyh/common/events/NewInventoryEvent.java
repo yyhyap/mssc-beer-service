@@ -1,7 +1,6 @@
-package com.yyh.msscbeerservice.events;
+package com.yyh.common.events;
 
 import com.yyh.msscbeerservice.web.model.BeerDto;
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor

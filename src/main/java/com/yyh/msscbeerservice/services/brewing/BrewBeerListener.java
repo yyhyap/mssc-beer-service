@@ -2,8 +2,8 @@ package com.yyh.msscbeerservice.services.brewing;
 
 import com.yyh.msscbeerservice.config.JmsConfig;
 import com.yyh.msscbeerservice.domain.Beer;
-import com.yyh.msscbeerservice.events.BrewBeerEvent;
-import com.yyh.msscbeerservice.events.NewInventoryEvent;
+import com.yyh.common.events.BrewBeerEvent;
+import com.yyh.common.events.NewInventoryEvent;
 import com.yyh.msscbeerservice.repositories.BeerRepository;
 import com.yyh.msscbeerservice.web.model.BeerDto;
 import lombok.extern.slf4j.Slf4j;
