@@ -1,6 +1,6 @@
-package com.yyh.common.events;
+package com.yyh.brewery.model.events;
 
-import com.yyh.msscbeerservice.web.model.BeerDto;
+import com.yyh.brewery.model.BeerDto;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor

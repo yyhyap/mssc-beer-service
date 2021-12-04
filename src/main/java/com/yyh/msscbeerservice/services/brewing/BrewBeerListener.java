@@ -2,10 +2,10 @@ package com.yyh.msscbeerservice.services.brewing;
 
 import com.yyh.msscbeerservice.config.JmsConfig;
 import com.yyh.msscbeerservice.domain.Beer;
-import com.yyh.common.events.BrewBeerEvent;
-import com.yyh.common.events.NewInventoryEvent;
+import com.yyh.brewery.model.events.BrewBeerEvent;
+import com.yyh.brewery.model.events.NewInventoryEvent;
 import com.yyh.msscbeerservice.repositories.BeerRepository;
-import com.yyh.msscbeerservice.web.model.BeerDto;
+import com.yyh.brewery.model.BeerDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;

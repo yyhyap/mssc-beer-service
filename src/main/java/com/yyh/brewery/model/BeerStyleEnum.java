@@ -1,4 +1,4 @@
-package com.yyh.msscbeerservice.web.model;
+package com.yyh.brewery.model;
 
 public enum BeerStyleEnum {
 
