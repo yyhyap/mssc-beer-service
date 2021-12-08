@@ -23,6 +23,8 @@ public class BeerOrderValidationListener {
     public void listen(ValidateOrderRequest validateOrderRequest) {
         Boolean isValid = validator.validateOrder(validateOrderRequest.getBeerOrderDto());
 
+        log.debug("Beer Validation is valid: " + isValid);
+
         ValidateOrderResult validateOrderResult = ValidateOrderResult.builder()
                 .isValid(isValid)
                 .orderId(validateOrderRequest.getBeerOrderDto().getId())
