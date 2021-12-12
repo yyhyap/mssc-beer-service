@@ -19,7 +19,7 @@ import java.util.UUID;
 
 @Profile("!local-discovery")
 @Slf4j
-// @ConfigurationProperties(prefix = "com.yyh", ignoreUnknownFields = false)
+// @ConfigurationProperties(prefix = "com.yyh", ignoreUnknownFields = true)
 @Component
 public class BeerInventoryServiceRestTemplateImpl implements BeerInventoryService {
     public static final String INVENTORY_PATH = "/api/v1/beer/{beerId}/inventory";
@@ -29,8 +29,12 @@ public class BeerInventoryServiceRestTemplateImpl implements BeerInventoryServic
     private String beerInventoryServiceHost;
 
     @Autowired
-    public BeerInventoryServiceRestTemplateImpl(RestTemplateBuilder restTemplateBuilder) {
-        this.restTemplate = restTemplateBuilder.build();
+    public BeerInventoryServiceRestTemplateImpl(RestTemplateBuilder restTemplateBuilder,
+                                                @Value("${com.yyh.inventory-username}") String inventoryUsername,
+                                                @Value("${com.yyh.inventory-password}") String inventoryPassword) {
+        this.restTemplate = restTemplateBuilder
+                .basicAuthentication(inventoryUsername, inventoryPassword)
+                .build();
     }
 
     @Override
