@@ -6,19 +6,11 @@
 	<parent>
 		<groupId>com.github.yyhyap</groupId>
 		<artifactId>mssc-brewery-bom</artifactId>
-		<version>e7c5f3fbe6</version>
+		<version>822ef2370b</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
 	<repositories>
-		<repository>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-			<id>central</id>
-			<name>Central Repository</name>
-			<url>https://repo.maven.apache.org/maven2</url>
-		</repository>
 		<repository>
 			<id>jitpack.io</id>
 			<url>https://jitpack.io</url>
