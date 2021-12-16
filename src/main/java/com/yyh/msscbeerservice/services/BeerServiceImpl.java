@@ -12,11 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import javax.transaction.Transactional;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -30,10 +32,11 @@ public class BeerServiceImpl implements BeerService {
     @Autowired
     private BeerRepository beerRepository;
 
+    @Async("taskExecutor2")
     // conditional caching, cache only when it is not going to get quantityOnHand from Beer Inventory Service
     @Cacheable(cacheNames = "beerListCache", condition = "#showInventoryOnHand == false")
     @Override
-    public BeerPagedList listBeers(String beerName, String beerStyle, PageRequest pageRequest, Boolean showInventoryOnHand) {
+    public CompletableFuture<BeerPagedList> listBeers(String beerName, String beerStyle, PageRequest pageRequest, Boolean showInventoryOnHand) {
         BeerPagedList beerPagedList;
         Page<Beer> beerPage;
 
@@ -79,7 +82,7 @@ public class BeerServiceImpl implements BeerService {
                     beerPage.getTotalElements());
         }
 
-        return beerPagedList;
+        return CompletableFuture.completedFuture(beerPagedList);
     }
 
     // conditional caching, cache only when it is not going to get quantityOnHand from Beer Inventory Service

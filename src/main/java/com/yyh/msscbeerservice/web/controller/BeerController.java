@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/")
@@ -29,7 +31,7 @@ public class BeerController {
                                                    @RequestParam(value = "pageSize", required = false) Integer pageSize,
                                                    @RequestParam(value = "beerName", required = false) String beerName,
                                                    @RequestParam(value = "beerStyle", required = false) String beerStyle,
-                                                   @RequestParam(value = "showInventoryOnHand", required = false) Boolean showInventoryOnHand){
+                                                   @RequestParam(value = "showInventoryOnHand", required = false) Boolean showInventoryOnHand) throws ExecutionException, InterruptedException {
 
         if(pageNumber == null || pageNumber < 0) {
             pageNumber = DEFAULT_PAGE_NUMBER;
@@ -43,7 +45,9 @@ public class BeerController {
             showInventoryOnHand = false;
         }
 
-        BeerPagedList beerList = beerService.listBeers(beerName, beerStyle, PageRequest.of(pageNumber, pageSize), showInventoryOnHand);
+        CompletableFuture<BeerPagedList> beerPagedListCompletableFuture = beerService.listBeers(beerName, beerStyle, PageRequest.of(pageNumber, pageSize), showInventoryOnHand);
+
+        BeerPagedList beerList = beerPagedListCompletableFuture.get();
 
         return new ResponseEntity<>(beerList, HttpStatus.OK);
     }

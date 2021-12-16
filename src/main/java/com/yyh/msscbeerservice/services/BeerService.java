@@ -5,9 +5,10 @@ import com.yyh.brewery.model.BeerPagedList;
 import org.springframework.data.domain.PageRequest;
 
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 
 public interface BeerService {
-    BeerPagedList listBeers(String beerName, String beerStyle, PageRequest pageRequest, Boolean showInventoryOnHand);
+    CompletableFuture<BeerPagedList> listBeers(String beerName, String beerStyle, PageRequest pageRequest, Boolean showInventoryOnHand);
 
     BeerDto getById(UUID beerId, Boolean showInventoryOnHand);
 
